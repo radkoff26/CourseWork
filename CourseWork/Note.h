@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "Tag.h"
 
 class Note {
@@ -7,8 +8,7 @@ private:
 	int id;
 	std::string title;
 	std::string text;
-	int numberOfTags;
-	Tag* tags;
+	std::vector<Tag> tags;
 	time_t creationTime;
 	time_t modificationTime;
 public:
@@ -16,9 +16,8 @@ public:
 	Note
 	(
 		int id, std::string title,
-		std::string text, int numberOfTags,
-		Tag* tags, time_t creationTime,
-		time_t modificationTime
+		std::string text, std::vector<Tag> tags,
+		time_t creationTime, time_t modificationTime
 	);
 	int getId();
 	void setId(int);
@@ -26,10 +25,8 @@ public:
 	void setTitle(std::string);
 	std::string getText();
 	void setText(std::string);
-	int getNumberOfTags();
-	void setNumberOfTags(int);
-	Tag* getTags();
-	void setTags(Tag*);
+	std::vector<Tag> getTags();
+	void setTags(std::vector<Tag>);
 	time_t getCreationTime();
 	void setCreationTime(time_t);
 	time_t getModificationTime();

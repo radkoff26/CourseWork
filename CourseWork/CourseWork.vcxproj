@@ -144,18 +144,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddNoteFrame.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="Mapper.cpp" />
     <ClCompile Include="Note.cpp" />
+    <ClCompile Include="NotesMapper.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="Tag.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddNoteFrame.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="Mapper.h" />
     <ClInclude Include="Note.h" />
+    <ClInclude Include="NotesMapper.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Tag.h" />
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

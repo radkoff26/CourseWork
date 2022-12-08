@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" ?>
+<resource version="2.3.0.1">
+	<object class="wxDialog" name="SimpleDialog">
+		<title>Simple dialog</title>
+		<object class="wxBoxSizer">
+			<orient>wxVERTICAL</orient>
+			<object class="sizeritem">
+				<object class="wxTextCtrl" name="text"/>
+				<option>1</option>
+				<flag>wxALL|wxEXPAND</flag>
+				<border>10</border>
+			</object>
+			<object class="sizeritem">
+				<object class="wxBoxSizer">
+					<object class="sizeritem">
+						<object class="wxButton" name="clickme_btn">
+							<label>Click</label>
+						</object>
+						<flag>wxRIGHT</flag>
+						<border>10</border>
+					</object>
+					<object class="sizeritem">
+						<object class="wxButton" name="wxID_OK">
+							<label>OK</label>
+						</object>
+						<flag>wxLEFT</flag>
+						<border>10</border>
+					</object>
+					<orient>wxHORIZONTAL</orient>
+				</object>
+				<flag>wxALL|wxALIGN_CENTRE</flag>
+				<border>10</border>
+			</object>
+		</object>
+	</object>
+</resource>

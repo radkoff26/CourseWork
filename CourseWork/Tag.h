@@ -6,7 +6,7 @@ private:
 	int id;
 	std::string title;
 public:
-	Tag(){};
+	Tag() {};
 	Tag(int, std::string);
 	int getId();
 	void setId(int);

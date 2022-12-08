@@ -2,11 +2,11 @@
 
 Note::Note(
     int id, std::string title,
-    std::string text, int numberOfTags,
-    Tag* tags, time_t creationTime,
+    std::string text, std::vector<Tag> tags,
+    time_t creationTime,
     time_t modificationTime
-) : id(id), title(title), text(text), numberOfTags(numberOfTags),
-    tags(tags), creationTime(creationTime), modificationTime(modificationTime)
+) : id(id), title(title), text(text), tags(tags),
+    creationTime(creationTime), modificationTime(modificationTime)
 {}
 
 int Note::getId()
@@ -39,27 +39,13 @@ void Note::setText(std::string text)
     this->text = text;
 }
 
-int Note::getNumberOfTags()
-{
-    return numberOfTags;
-}
-
-void Note::setNumberOfTags(int numberOfTags)
-{
-    this->numberOfTags = numberOfTags;
-}
-
-Tag* Note::getTags()
+std::vector<Tag> Note::getTags()
 {
     return tags;
 }
 
-void Note::setTags(Tag* tags)
+void Note::setTags(std::vector<Tag>)
 {
-    if (tags != nullptr) {
-        delete[] this->tags;
-        this->tags = nullptr;
-    }
     this->tags = tags;
 }
 

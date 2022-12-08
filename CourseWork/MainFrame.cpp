@@ -1,15 +1,41 @@
 #include "MainFrame.h"
+#include <iostream>
+#include <string>
 #include <wx/wx.h>
+#include <wx/splitter.h>
+#include <wx/html/htmlwin.h>
+#include "Repository.h"
+#include "AddNoteFrame.h"
 
-MainFrame::MainFrame(const wxString& title): wxFrame(nullptr, wxID_ANY, title)
+MainFrame::MainFrame(App* app, const wxString& title): wxFrame(nullptr, wxID_ANY, title)
 {
-	wxPanel* panel = new wxPanel(this);
+	this->app = app;
 
-	wxButton* button = new wxButton(panel, wxID_ANY, "Button", wxPoint(150, 50), wxSize(100, 35));
+	this->repository = new Repository();
 
-	wxCheckBox* checkbox = new wxCheckBox(panel, wxID_ANY, "Checkbox", wxPoint(550, 55));
+	this->panel = new wxPanel(this);
 
-	wxStaticText* text = new wxStaticText(panel, wxID_ANY, "Static Text", wxPoint(120, 150));
+	this->addNoteButton = new wxButton(panel, wxID_ANY, "Add Note", wxPoint(65, 50), wxSize(170, 55));
+	this->addTagButton = new wxButton(panel, wxID_ANY, "Add Tag", wxPoint(315, 50), wxSize(170, 55));
+	this->filterButton = new wxButton(panel, wxID_ANY, "Filter", wxPoint(565, 50), wxSize(170, 55));
+	this->notesList = new wxListCtrl(panel, wxID_ANY, wxPoint(150, 150), wxSize(500, -1), wxLC_LIST | wxLC_SINGLE_SEL);
 
-	wxTextCtrl* textInput = new wxTextCtrl(panel, wxID_ANY, "Text", wxPoint(500, 145), wxSize(200, -1));
+	this->notesList->InsertItem(0, "qwerty1");
+	this->notesList->InsertItem(1, "qwerty2");
+
+	this->notesList->Bind(wxEVT_LIST_ITEM_SELECTED, &MainFrame::OnSelectItem, this);
+	this->addNoteButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddNote, this);
 }
+
+void MainFrame::OnAddNote(wxCommandEvent& evt)
+{
+	app->switchToFrame(new AddNoteFrame(app, nullptr, "Add Note"));
+}
+
+void MainFrame::OnSelectItem(wxCommandEvent& evt)
+{
+	int id = ((wxListEvent&) evt).GetIndex();
+	this->notesList->SetItem(id, 0, std::to_string(id));
+}
+
+
