@@ -8,7 +8,7 @@ template <class T>
 class Mapper
 {
 public:
-	virtual T map(std::unique_ptr<sql::ResultSet>) {};
+	virtual T map(sql::ResultSet*) = 0;
 protected:
 	Mapper() {}
 };

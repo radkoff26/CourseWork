@@ -20,8 +20,12 @@ MainFrame::MainFrame(App* app, const wxString& title): wxFrame(nullptr, wxID_ANY
 	this->filterButton = new wxButton(panel, wxID_ANY, "Filter", wxPoint(565, 50), wxSize(170, 55));
 	this->notesList = new wxListCtrl(panel, wxID_ANY, wxPoint(150, 150), wxSize(500, -1), wxLC_LIST | wxLC_SINGLE_SEL);
 
-	this->notesList->InsertItem(0, "qwerty1");
-	this->notesList->InsertItem(1, "qwerty2");
+	this->notes = repository->findAllNotes();
+
+	for (int i = 0; i < notes.size(); i++)
+	{
+		this->notesList->InsertItem(i, notes.at(i).getText());
+	}
 
 	this->notesList->Bind(wxEVT_LIST_ITEM_SELECTED, &MainFrame::OnSelectItem, this);
 	this->addNoteButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddNote, this);

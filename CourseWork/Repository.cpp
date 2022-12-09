@@ -4,6 +4,7 @@
 #include <chrono>
 #include <string>
 #include "Repository.h"
+#include "NotesMapper.h"
 
 const std::string noteInsertionQuery = 
 "INSERT INTO note (title, text, creation_time, modification_time) VALUES (?, ?, ?, ?)";
@@ -13,6 +14,9 @@ const std::string noteSelectionQuery =
 
 const std::string tagInsertionQuery = 
 "INSERT INTO note_tag_relation (note_id, tag_id) VALUES (?, ?)";
+
+const std::string tagSelectionQuery =
+"SELECT * FROM tag";
 
 void Repository::close()
 {
@@ -26,13 +30,16 @@ std::vector<Note> Repository::findAllNotes()
 
 	std::vector<Note> notes;
 
-	while (rs->next()) {
-		Note note;
+	NotesMapper mapper(con);
 
-		note.setId(rs->getInt("id"));
-		note.setTitle(rs->getString("title"));
-		note.setText(rs->getString("text"));
+	while (rs->next()) {
+		notes.push_back(mapper.map(rs));
 	}
+
+	delete[] stmt;
+	delete[] rs;
+
+	return notes;
 }
 
 void Repository::addNote(Note note)
