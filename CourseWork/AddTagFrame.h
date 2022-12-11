@@ -3,11 +3,11 @@
 #include "Repository.h"
 #include "App.h"
 
-class AddNoteFrame: public wxFrame
+class AddTagFrame : public wxFrame
 {
 public:
-	AddNoteFrame(App* app, wxWindow* parent, const wxString& title);
-	~AddNoteFrame() {
+	AddTagFrame(App* app, wxWindow* parent, const wxString& title);
+	~AddTagFrame() {
 
 	}
 private:
@@ -15,10 +15,6 @@ private:
 	App* app;
 	wxPanel* panel;
 	wxTextCtrl* titleInput;
-	wxTextCtrl* textInput;
-	std::vector<Tag> tags;
-	wxListBox* tagsList;
 	wxButton* submitButton;
 	void OnSubmit(wxCommandEvent& evt);
 };
-

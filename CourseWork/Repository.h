@@ -6,6 +6,7 @@
 #include <cppconn/exception.h>
 #include <cppconn/prepared_statement.h>
 #include "Note.h"
+#include "Tag.h"
 
 const std::string server = "127.0.0.1:3306";
 const std::string username = "root";
@@ -36,6 +37,10 @@ public:
 	}
 	void close();
 	std::vector<Note> findAllNotes();
+	std::vector<Tag> findAllTags();
 	void addNote(Note note);
+	void addTag(Tag tag);
+	void updateNote(Note note);
+	void deleteNote(int id);
 };
 

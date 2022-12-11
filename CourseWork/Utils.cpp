@@ -1,3 +1,6 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include <string>
 #include "Utils.h"
 
 const char* ws = " \t\n";
@@ -17,4 +20,20 @@ std::string& ltrim(std::string& s)
 std::string& trim(std::string& s)
 {
     return ltrim(rtrim(s));
+}
+
+std::string timeToString(time_t time) {
+    tm tmTime = *localtime(&time);
+    std::string s = std::to_string(tmTime.tm_hour);
+    s += ":";
+    s += std::to_string(tmTime.tm_min);
+    s += ":";
+    s += std::to_string(tmTime.tm_sec);
+    s += " ";
+    s += std::to_string(tmTime.tm_mday);
+    s += "/";
+    s += std::to_string(tmTime.tm_mon + 1);
+    s += "/";
+    s += std::to_string(tmTime.tm_year + 1900);
+    return s;
 }

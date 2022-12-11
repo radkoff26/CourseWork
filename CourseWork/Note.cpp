@@ -44,7 +44,7 @@ std::vector<Tag> Note::getTags()
     return tags;
 }
 
-void Note::setTags(std::vector<Tag>)
+void Note::setTags(std::vector<Tag> tags)
 {
     this->tags = tags;
 }
@@ -67,4 +67,19 @@ time_t Note::getModificationTime()
 void Note::setModificationTime(time_t modificationTime)
 {
     this->modificationTime = modificationTime;
+}
+
+std::string Note::getTagsStringified()
+{
+    std::string s = "";
+    if (tags.size() > 0) {
+        for (int i = 0; i < tags.size(); i++)
+        {
+            s += (s.size() > 0 ? ", " : "") + tags[i].getTitle();
+        }
+    }
+    else {
+        s = "None";
+    }
+    return s;
 }

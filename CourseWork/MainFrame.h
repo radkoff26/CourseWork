@@ -4,6 +4,7 @@
 #include "Repository.h"
 #include <vector>
 #include "App.h"
+#include "NoteWindow.h"
 
 class MainFrame : public wxFrame {
 public:
@@ -18,8 +19,13 @@ private:
 	wxButton* addNoteButton;
 	wxButton* addTagButton;
 	wxButton* filterButton;
-	wxListCtrl* notesList;
+	wxListBox* notesList;
+	NoteWindow* noteWindow;
+	std::function<void(int)> onRemoveCallback;
+	std::function<void(Note)> onUpdateCallback;
 	std::vector<Note> notes;
 	void OnAddNote(wxCommandEvent& evt);
+	void OnAddTag(wxCommandEvent& evt);
 	void OnSelectItem(wxCommandEvent& evt);
+	void UpdateList();
 };

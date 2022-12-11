@@ -31,5 +31,6 @@ public:
 	void setCreationTime(time_t);
 	time_t getModificationTime();
 	void setModificationTime(time_t);
+	std::string getTagsStringified();
 };
 
