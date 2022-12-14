@@ -6,7 +6,7 @@
 class AddNoteFrame: public wxFrame
 {
 public:
-	AddNoteFrame(App* app, wxWindow* parent, const wxString& title);
+	AddNoteFrame(App* app, wxWindow* parent, const wxString& title, Repository* repository);
 	~AddNoteFrame() {
 
 	}
@@ -16,6 +16,7 @@ private:
 	wxPanel* panel;
 	wxTextCtrl* titleInput;
 	wxTextCtrl* textInput;
+	wxTextCtrl* authorInput;
 	std::vector<Tag> tags;
 	wxListBox* tagsList;
 	wxButton* submitButton;

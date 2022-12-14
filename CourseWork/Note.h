@@ -11,13 +11,15 @@ private:
 	std::vector<Tag> tags;
 	time_t creationTime;
 	time_t modificationTime;
+	std::string author;
 public:
 	Note(){}
 	Note
 	(
 		int id, std::string title,
 		std::string text, std::vector<Tag> tags,
-		time_t creationTime, time_t modificationTime
+		time_t creationTime, time_t modificationTime,
+		std::string author
 	);
 	int getId();
 	void setId(int);
@@ -32,5 +34,8 @@ public:
 	time_t getModificationTime();
 	void setModificationTime(time_t);
 	std::string getTagsStringified();
+	std::string getAuthor();
+	void setAuthor(std::string);
+	std::string toString();
 };
 

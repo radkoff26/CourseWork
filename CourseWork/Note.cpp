@@ -4,9 +4,10 @@ Note::Note(
     int id, std::string title,
     std::string text, std::vector<Tag> tags,
     time_t creationTime,
-    time_t modificationTime
+    time_t modificationTime,
+    std::string author
 ) : id(id), title(title), text(text), tags(tags),
-    creationTime(creationTime), modificationTime(modificationTime)
+    creationTime(creationTime), modificationTime(modificationTime), author(author)
 {}
 
 int Note::getId()
@@ -82,4 +83,34 @@ std::string Note::getTagsStringified()
         s = "None";
     }
     return s;
+}
+
+std::string Note::getAuthor()
+{
+    return this->author;
+}
+
+void Note::setAuthor(std::string author)
+{
+    this->author = author;
+}
+
+std::string Note::toString()
+{
+    std::string displayedTitle;
+    if (title.length() > 20) {
+        displayedTitle = title.substr(0, 20) + "...";
+    }
+    else {
+        displayedTitle = title;
+    }
+    std::string tagsStringified = getTagsStringified();
+    std::string displayedTags;
+    if (tagsStringified.length() > 20) {
+        displayedTags = tagsStringified.substr(0, 20) + "...";
+    }
+    else {
+        displayedTags = tagsStringified;
+    }
+    return "Title: " + displayedTitle + "\tTags: " + displayedTags;
 }

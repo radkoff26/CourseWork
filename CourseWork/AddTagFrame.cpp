@@ -7,10 +7,15 @@
 #include "Repository.h"
 #include "Utils.h"
 
-AddTagFrame::AddTagFrame(App* app, wxWindow* parent, const wxString& title) : wxFrame(parent, wxID_ANY, title)
+AddTagFrame::AddTagFrame(App* app, wxWindow* parent, const wxString& title, Repository* repository) : wxFrame(parent, wxID_ANY, title)
 {
 	this->app = app;
-	this->repository = new Repository();
+	if (repository == nullptr) {
+		this->repository = new Repository();
+	}
+	else {
+		this->repository = repository;
+	}
 	this->panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(800, 600));
 	this->titleInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(100, 100), wxSize(100, 100));
 	this->submitButton = new wxButton(panel, wxID_ANY, "Add Tag", wxPoint(100, 400), wxSize(90, 50));
@@ -24,6 +29,6 @@ void AddTagFrame::OnSubmit(wxCommandEvent& evt)
 	title = trim(title);
 	if (title.length() > 0) {
 		this->repository->addTag(Tag(0, title));
-		this->app->switchToFrame(new MainFrame(this->app, "Main Frame"));
+		this->app->switchToFrame(new MainFrame(this->app, "Main Frame", {}, nullptr));
 	}
 }

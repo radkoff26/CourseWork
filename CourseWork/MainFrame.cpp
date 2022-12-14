@@ -7,24 +7,35 @@
 #include "Repository.h"
 #include "AddNoteFrame.h"
 #include "AddTagFrame.h"
+#include "FilterFrame.h"
 
-MainFrame::MainFrame(App* app, const wxString& title): wxFrame(nullptr, wxID_ANY, title)
+MainFrame::MainFrame(
+	App* app, 
+	const wxString& title, 
+	std::vector<std::function<bool(Note)>> filters,
+	Repository* repository
+): wxFrame(nullptr, wxID_ANY, title)
 {
 	this->app = app;
 
-	this->repository = new Repository();
+	if (repository == nullptr) {
+		this->repository = new Repository();
+	}
+	else {
+		this->repository = repository;
+	}
 
 	Repository* repo = this->repository;
 
-	this->onRemoveCallback = [this, repo](int id) {
+	this->onRemoveCallback = [this, repo, filters](int id) {
 		repo->deleteNote(id);
-		this->notes = repo->findAllNotes();
+		this->notes = repo->findAllNotes(filters);
 		this->UpdateList();
 	};
 
-	this->onUpdateCallback = [this, repo](Note note) {
+	this->onUpdateCallback = [this, repo, filters](Note note) {
 		repo->updateNote(note);
-		this->notes = repo->findAllNotes();
+		this->notes = repo->findAllNotes(filters);
 		this->UpdateList();
 	};
 
@@ -36,23 +47,29 @@ MainFrame::MainFrame(App* app, const wxString& title): wxFrame(nullptr, wxID_ANY
 	this->notesList = new wxListBox(panel, wxID_ANY, wxPoint(150, 150), wxSize(500, 150), {}, wxLB_SINGLE);
 	this->noteWindow = new NoteWindow(panel, wxPoint(100, 350), onRemoveCallback, onUpdateCallback);
 
-	this->notes = repository->findAllNotes();
+	this->notes = this->repository->findAllNotes(filters);
 
 	this->UpdateList();
 
 	this->notesList->Bind(wxEVT_LISTBOX, &MainFrame::OnSelectItem, this);
 	this->addNoteButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddNote, this);
 	this->addTagButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddTag, this);
+	this->filterButton->Bind(wxEVT_BUTTON, &MainFrame::OnAdjustFilters, this);
 }
 
 void MainFrame::OnAddNote(wxCommandEvent& evt)
 {
-	app->switchToFrame(new AddNoteFrame(app, nullptr, "Add Note"));
+	app->switchToFrame(new AddNoteFrame(app, nullptr, "Add Note", this->repository));
 }
 
 void MainFrame::OnAddTag(wxCommandEvent& evt)
 {
-	app->switchToFrame(new AddTagFrame(app, nullptr, "Add Tag"));
+	app->switchToFrame(new AddTagFrame(app, nullptr, "Add Tag", this->repository));
+}
+
+void MainFrame::OnAdjustFilters(wxCommandEvent& evt)
+{
+	app->switchToFrame(new FilterFrame(app, nullptr, this->repository));
 }
 
 void MainFrame::OnSelectItem(wxCommandEvent& evt)
@@ -65,8 +82,6 @@ void MainFrame::UpdateList() {
 	this->notesList->Clear();
 	for (int i = 0; i < notes.size(); i++)
 	{
-		this->notesList->Insert(notes.at(i).getText(), i);
+		this->notesList->Insert(notes.at(i).toString(), i);
 	}
 }
-
-

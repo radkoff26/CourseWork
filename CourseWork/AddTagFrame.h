@@ -6,7 +6,7 @@
 class AddTagFrame : public wxFrame
 {
 public:
-	AddTagFrame(App* app, wxWindow* parent, const wxString& title);
+	AddTagFrame(App* app, wxWindow* parent, const wxString& title, Repository* repository);
 	~AddTagFrame() {
 
 	}

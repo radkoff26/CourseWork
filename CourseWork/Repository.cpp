@@ -8,7 +8,7 @@
 #include "TagMapper.h"
 
 const std::string noteInsertionQuery = 
-"INSERT INTO note (title, text, creation_time, modification_time) VALUES (?, ?, ?, ?)";
+"INSERT INTO note (title, text, creation_time, modification_time, author) VALUES (?, ?, ?, ?, ?)";
 
 const std::string noteSelectionQuery = 
 "SELECT * FROM note";
@@ -29,14 +29,14 @@ const std::string deletionNoteRelationQuery =
 "DELETE FROM note_tag_relation WHERE note_id=?";
 
 const std::string updatingNoteQuery =
-"UPDATE note set title=?, text=?, modification_time=? WHERE id=?";
+"UPDATE note set title=?, text=?, modification_time=?, author=? WHERE id=?";
 
 void Repository::close()
 {
 	con->close();
 }
 
-std::vector<Note> Repository::findAllNotes()
+std::vector<Note> Repository::findAllNotes(std::vector<std::function<bool(Note)>> filters)
 {
 	sql::Statement* stmt = con->createStatement();
 	sql::ResultSet* rs = stmt->executeQuery(noteSelectionQuery);
@@ -52,7 +52,32 @@ std::vector<Note> Repository::findAllNotes()
 	delete[] stmt;
 	delete[] rs;
 
-	return notes;
+	if (filters.size() == 0) {
+		return notes;
+	}
+
+	std::vector<Note> result;
+
+	for (int i = 0; i < notes.size(); i++)
+	{
+		Note note = notes[i];
+
+		bool flag = true;
+
+		for (int j = 0; j < filters.size(); j++)
+		{
+			if (!filters[j](note)) {
+				flag = false;
+				break;
+			}
+		}
+
+		if (flag) {
+			result.push_back(note);
+		}
+	}
+
+	return result;
 }
 
 void Repository::addNote(Note note)
@@ -65,6 +90,7 @@ void Repository::addNote(Note note)
 	ps->setString(2, note.getText());
 	ps->setBigInt(3, std::to_string(now));
 	ps->setBigInt(4, std::to_string(now));
+	ps->setString(5, note.getAuthor());
 
 	int id;
 
@@ -138,7 +164,8 @@ void Repository::updateNote(Note note)
 	ps->setString(1, note.getTitle());
 	ps->setString(2, note.getText());
 	ps->setBigInt(3, std::to_string(note.getModificationTime()));
-	ps->setInt(4, note.getId());
+	ps->setString(4, note.getAuthor());
+	ps->setInt(5, note.getId());
 
 	ps->executeUpdate();
 

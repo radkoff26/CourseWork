@@ -8,7 +8,12 @@
 
 class MainFrame : public wxFrame {
 public:
-	MainFrame(App* app, const wxString& title);
+	MainFrame(
+		App* app,
+		const wxString& title,
+		std::vector<std::function<bool(Note)>> filters,
+		Repository* repository
+	);
 	~MainFrame() {
 
 	}
@@ -26,6 +31,7 @@ private:
 	std::vector<Note> notes;
 	void OnAddNote(wxCommandEvent& evt);
 	void OnAddTag(wxCommandEvent& evt);
+	void OnAdjustFilters(wxCommandEvent& evt);
 	void OnSelectItem(wxCommandEvent& evt);
 	void UpdateList();
 };

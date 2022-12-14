@@ -34,6 +34,7 @@ Note NotesMapper::map(sql::ResultSet* rs)
 
 	note.setCreationTime(rs->getInt64("creation_time"));
 	note.setModificationTime(rs->getInt64("modification_time"));
+	note.setAuthor(rs->getString("author"));
 
 	delete[] psRel;
 	delete[] psTag;

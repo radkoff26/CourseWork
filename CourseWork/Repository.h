@@ -36,7 +36,7 @@ public:
 
 	}
 	void close();
-	std::vector<Note> findAllNotes();
+	std::vector<Note> findAllNotes(std::vector<std::function<bool(Note)>> filters);
 	std::vector<Tag> findAllTags();
 	void addNote(Note note);
 	void addTag(Tag tag);

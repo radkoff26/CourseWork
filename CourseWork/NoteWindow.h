@@ -8,6 +8,7 @@ private:
 	Note note;
 	wxTextCtrl* titleView;
 	wxTextCtrl* textView;
+	wxTextCtrl* authorView;
 	wxStaticText* tagsView;
 	wxStaticText* creationTimeView;
 	wxStaticText* modificationTimeView;

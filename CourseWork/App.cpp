@@ -7,7 +7,7 @@ wxIMPLEMENT_APP(App);
 
 bool App::OnInit()
 {
-    switchToFrame(new MainFrame(this, "Main Frame"));
+    switchToFrame(new MainFrame(this, "Main Frame", {}, nullptr));
     return true;
 }
 
