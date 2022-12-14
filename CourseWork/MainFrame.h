@@ -1,6 +1,5 @@
 #pragma once
 #include <wx/wx.h>
-#include <wx/listctrl.h>
 #include "Repository.h"
 #include <vector>
 #include "App.h"
@@ -24,6 +23,7 @@ private:
 	wxButton* addNoteButton;
 	wxButton* addTagButton;
 	wxButton* filterButton;
+	wxButton* dashboardButton;
 	wxListBox* notesList;
 	NoteWindow* noteWindow;
 	std::function<void(int)> onRemoveCallback;
@@ -32,6 +32,7 @@ private:
 	void OnAddNote(wxCommandEvent& evt);
 	void OnAddTag(wxCommandEvent& evt);
 	void OnAdjustFilters(wxCommandEvent& evt);
+	void OnOpenDashboard(wxCommandEvent& evt);
 	void OnSelectItem(wxCommandEvent& evt);
 	void UpdateList();
 };

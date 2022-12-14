@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <map>
 #include "mysql_connection.h"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
@@ -36,11 +37,15 @@ public:
 
 	}
 	void close();
+	// Note
 	std::vector<Note> findAllNotes(std::vector<std::function<bool(Note)>> filters);
-	std::vector<Tag> findAllTags();
 	void addNote(Note note);
-	void addTag(Tag tag);
 	void updateNote(Note note);
 	void deleteNote(int id);
+	std::map<std::string, int> countAuthorsNotesGrouped();
+	// Tag
+	std::vector<Tag> findAllTags();
+	void addTag(Tag tag);
+	int countTagRelationsByTagId(int id);
 };
 

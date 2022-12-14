@@ -8,6 +8,7 @@
 #include "AddNoteFrame.h"
 #include "AddTagFrame.h"
 #include "FilterFrame.h"
+#include "DashboardFrame.h"
 
 MainFrame::MainFrame(
 	App* app, 
@@ -41,9 +42,10 @@ MainFrame::MainFrame(
 
 	this->panel = new wxPanel(this);
 
-	this->addNoteButton = new wxButton(panel, wxID_ANY, "Add Note", wxPoint(65, 50), wxSize(170, 55));
-	this->addTagButton = new wxButton(panel, wxID_ANY, "Add Tag", wxPoint(315, 50), wxSize(170, 55));
-	this->filterButton = new wxButton(panel, wxID_ANY, "Filter", wxPoint(565, 50), wxSize(170, 55));
+	this->addNoteButton = new wxButton(panel, wxID_ANY, "Add Note", wxPoint(50, 50), wxSize(100, 55));
+	this->addTagButton = new wxButton(panel, wxID_ANY, "Add Tag", wxPoint(250, 50), wxSize(100, 55));
+	this->filterButton = new wxButton(panel, wxID_ANY, "Filter", wxPoint(450, 50), wxSize(100, 55));
+	this->dashboardButton = new wxButton(panel, wxID_ANY, "Dashboard", wxPoint(650, 50), wxSize(100, 55));
 	this->notesList = new wxListBox(panel, wxID_ANY, wxPoint(150, 150), wxSize(500, 150), {}, wxLB_SINGLE);
 	this->noteWindow = new NoteWindow(panel, wxPoint(100, 350), onRemoveCallback, onUpdateCallback);
 
@@ -55,6 +57,7 @@ MainFrame::MainFrame(
 	this->addNoteButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddNote, this);
 	this->addTagButton->Bind(wxEVT_BUTTON, &MainFrame::OnAddTag, this);
 	this->filterButton->Bind(wxEVT_BUTTON, &MainFrame::OnAdjustFilters, this);
+	this->dashboardButton->Bind(wxEVT_BUTTON, &MainFrame::OnOpenDashboard, this);
 }
 
 void MainFrame::OnAddNote(wxCommandEvent& evt)
@@ -70,6 +73,11 @@ void MainFrame::OnAddTag(wxCommandEvent& evt)
 void MainFrame::OnAdjustFilters(wxCommandEvent& evt)
 {
 	app->switchToFrame(new FilterFrame(app, nullptr, this->repository));
+}
+
+void MainFrame::OnOpenDashboard(wxCommandEvent& evt)
+{
+	app->switchToFrame(new DashboardFrame(app, this->repository));
 }
 
 void MainFrame::OnSelectItem(wxCommandEvent& evt)

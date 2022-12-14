@@ -31,6 +31,12 @@ const std::string deletionNoteRelationQuery =
 const std::string updatingNoteQuery =
 "UPDATE note set title=?, text=?, modification_time=?, author=? WHERE id=?";
 
+const std::string authorStatsQuery =
+"SELECT author, COUNT(*) as count from note GROUP BY author";
+
+const std::string tagCountQuery =
+"SELECT COUNT(*) as count from note_tag_relation WHERE tag_id=?";
+
 void Repository::close()
 {
 	con->close();
@@ -157,6 +163,26 @@ void Repository::addTag(Tag tag)
 	delete[] ps;
 }
 
+int Repository::countTagRelationsByTagId(int id)
+{
+	sql::PreparedStatement* ps = con->prepareStatement(tagCountQuery);
+
+	ps->setInt(1, id);
+
+	sql::ResultSet* rs = ps->executeQuery();
+
+	int count;
+
+	if (rs->next()) {
+		count = rs->getInt("count");
+	}
+
+	delete[] ps;
+	delete[] rs;
+
+	return count;
+}
+
 void Repository::updateNote(Note note)
 {
 	sql::PreparedStatement* ps = this->con->prepareStatement(updatingNoteQuery);
@@ -189,4 +215,22 @@ void Repository::deleteNote(int id)
 	ps->executeUpdate();
 
 	delete[] ps;
+}
+
+std::map<std::string, int> Repository::countAuthorsNotesGrouped()
+{
+	std::map<std::string, int> map;
+
+	sql::Statement* stmt = con->createStatement();
+
+	sql::ResultSet* rs = stmt->executeQuery(authorStatsQuery);
+
+	while (rs->next()) {
+		map.insert(std::pair<std::string, int>(rs->getString("author"), rs->getInt("count")));
+	}
+
+	delete[] stmt;
+	delete[] rs;
+
+	return map;
 }

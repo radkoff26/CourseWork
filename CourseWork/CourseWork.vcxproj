@@ -147,6 +147,7 @@
     <ClCompile Include="AddNoteFrame.cpp" />
     <ClCompile Include="AddTagFrame.cpp" />
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="DashboardFrame.cpp" />
     <ClCompile Include="FilterFrame.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Mapper.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="AddNoteFrame.h" />
     <ClInclude Include="AddTagFrame.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="DashboardFrame.h" />
     <ClInclude Include="FilterFrame.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="Mapper.h" />
