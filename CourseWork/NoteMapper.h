@@ -3,10 +3,13 @@
 #include "Repository.h"
 #include "Note.h"
 
-class NotesMapper : public Mapper<Note>
+class NoteMapper : public Mapper<Note>
 {
 public:
-	NotesMapper(sql::Connection* connection): connection(connection) {}
+	NoteMapper(sql::Connection* connection): connection(connection) {}
+	~NoteMapper() {
+		this->connection = nullptr;
+	}
 	Note map(sql::ResultSet* rs) override;
 private:
 	sql::Connection* connection;

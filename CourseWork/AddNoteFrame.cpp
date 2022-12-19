@@ -7,12 +7,7 @@
 #include "Repository.h"
 #include "Utils.h"
 
-AddNoteFrame::AddNoteFrame(
-	App* app,
-	wxWindow* parent,
-	const wxString& title,
-	Repository* repository
-): wxFrame(parent, wxID_ANY, title)
+AddNoteFrame::AddNoteFrame(App* app, Repository* repository): wxFrame(nullptr, wxID_ANY, "Add Note")
 {
 	this->app = app;
 	if (repository == nullptr) {
@@ -22,11 +17,15 @@ AddNoteFrame::AddNoteFrame(
 		this->repository = repository;
 	}
 	this->panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(800, 600));
-	this->titleInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(100, 100), wxSize(400, 30), wxTE_MULTILINE);
-	this->textInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(100, 150), wxSize(400, 80), wxTE_MULTILINE);
-	this->authorInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(100, 250), wxSize(400, 30), wxTE_MULTILINE);
-	this->tagsList = new wxListBox(panel, wxID_ANY, wxPoint(200, 300), wxSize(-1, 200), {}, wxLB_MULTIPLE);
-	this->submitButton = new wxButton(panel, wxID_ANY, "Add Note", wxPoint(100, 400), wxSize(90, 50));
+	wxStaticText* titleLabel = new wxStaticText(panel, wxID_ANY, "Title:", wxPoint(100, 100), wxSize(50, 30));
+	this->titleInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(150, 100), wxSize(350, 30));
+	wxStaticText* textLabel = new wxStaticText(panel, wxID_ANY, "Text:", wxPoint(100, 150), wxSize(50, 30));
+	this->textInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(150, 150), wxSize(350, 80), wxTE_MULTILINE);
+	wxStaticText* authorLabel = new wxStaticText(panel, wxID_ANY, "Author:", wxPoint(100, 250), wxSize(50, 30));
+	this->authorInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(150, 250), wxSize(350, 30));
+	wxStaticText* tagsLabel = new wxStaticText(panel, wxID_ANY, "Tags:", wxPoint(100, 300), wxSize(50, 30));
+	this->tagsList = new wxListBox(panel, wxID_ANY, wxPoint(150, 300), wxSize(250, 180), {}, wxLB_MULTIPLE);
+	this->submitButton = new wxButton(panel, wxID_ANY, "Add Note", wxPoint(150, 500), wxSize(100, 50));
 
 	this->tags = this->repository->findAllTags();
 
@@ -55,6 +54,6 @@ void AddNoteFrame::OnSubmit(wxCommandEvent& evt)
 	}
 	if (title.length() > 0 && text.length() > 0 && author.size() > 0) {
 		this->repository->addNote(Note(0, title, text, selectedTags, 0, 0, author));
-		this->app->switchToFrame(new MainFrame(this->app, "Main Frame", {}, nullptr));
+		this->app->switchToFrame(new MainFrame(this->app, {}, nullptr));
 	}
 }

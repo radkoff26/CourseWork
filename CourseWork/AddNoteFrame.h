@@ -6,9 +6,10 @@
 class AddNoteFrame: public wxFrame
 {
 public:
-	AddNoteFrame(App* app, wxWindow* parent, const wxString& title, Repository* repository);
+	AddNoteFrame(App* app, Repository* repository);
 	~AddNoteFrame() {
-
+		this->app = nullptr;
+		this->repository = nullptr;
 	}
 private:
 	Repository* repository;

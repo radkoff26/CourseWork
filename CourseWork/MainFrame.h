@@ -9,12 +9,12 @@ class MainFrame : public wxFrame {
 public:
 	MainFrame(
 		App* app,
-		const wxString& title,
 		std::vector<std::function<bool(Note)>> filters,
 		Repository* repository
 	);
 	~MainFrame() {
-
+		this->app = nullptr;
+		this->repository = nullptr;
 	}
 private:
 	App* app;

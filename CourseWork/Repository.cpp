@@ -4,7 +4,7 @@
 #include <chrono>
 #include <string>
 #include "Repository.h"
-#include "NotesMapper.h"
+#include "NoteMapper.h"
 #include "TagMapper.h"
 
 const std::string noteInsertionQuery = 

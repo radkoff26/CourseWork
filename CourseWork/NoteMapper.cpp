@@ -1,7 +1,7 @@
-#include "NotesMapper.h"
+#include "NoteMapper.h"
 #include "TagMapper.h"
 
-Note NotesMapper::map(sql::ResultSet* rs)
+Note NoteMapper::map(sql::ResultSet* rs)
 {
     Note note;
 	sql::PreparedStatement* psRel = connection->prepareStatement("SELECT * FROM note_tag_relation WHERE note_id=?");

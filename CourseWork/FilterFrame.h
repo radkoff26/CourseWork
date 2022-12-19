@@ -7,6 +7,12 @@
 
 class FilterFrame: public wxFrame
 {
+public:
+	FilterFrame(App* app, Repository* repository);
+	~FilterFrame() {
+		this->app = nullptr;
+		this->repository = nullptr;
+	}
 private:
 	App* app;
 	Repository* repository;
@@ -18,7 +24,5 @@ private:
 	wxButton* applyFiltersButton;
 	std::vector<Tag> tags;
 	void OnApply(wxCommandEvent& evt);
-public:
-	FilterFrame(App* app, wxWindow* parent, Repository* repository);
 };
 

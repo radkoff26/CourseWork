@@ -7,7 +7,7 @@ wxIMPLEMENT_APP(App);
 
 bool App::OnInit()
 {
-    switchToFrame(new MainFrame(this, "Main Frame", {}, nullptr));
+    switchToFrame(new MainFrame(this, {}, nullptr));
     return true;
 }
 
@@ -15,7 +15,7 @@ void App::switchToFrame(wxFrame* frame)
 {
     if (currentFrame != nullptr) {
         if (currentFrame->IsActive()) {
-            currentFrame->Close();
+            currentFrame->Destroy();
         }
         delete[] currentFrame;
     }

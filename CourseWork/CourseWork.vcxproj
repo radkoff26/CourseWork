@@ -152,7 +152,7 @@
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Mapper.cpp" />
     <ClCompile Include="Note.cpp" />
-    <ClCompile Include="NotesMapper.cpp" />
+    <ClCompile Include="NoteMapper.cpp" />
     <ClCompile Include="NoteWindow.cpp" />
     <ClCompile Include="Repository.cpp" />
     <ClCompile Include="Tag.cpp" />
@@ -168,7 +168,7 @@
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="Mapper.h" />
     <ClInclude Include="Note.h" />
-    <ClInclude Include="NotesMapper.h" />
+    <ClInclude Include="NoteMapper.h" />
     <ClInclude Include="NoteWindow.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Tag.h" />

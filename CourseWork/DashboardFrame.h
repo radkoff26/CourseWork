@@ -6,11 +6,15 @@
 
 class DashboardFrame: public wxFrame
 {
+public:
+	DashboardFrame(App* app, Repository* repository);
+	~DashboardFrame() {
+		this->app = nullptr;
+		this->repository = nullptr;
+	}
 private:
 	App* app;
 	Repository* repository;
 	void OnBack(wxCommandEvent& evt);
-public:
-	DashboardFrame(App* app, Repository* repository);
 };
 

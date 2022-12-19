@@ -7,9 +7,11 @@ DashboardFrame::DashboardFrame(App* app, Repository* repository): wxFrame(nullpt
 	this->repository = repository;
 
 	wxPanel* panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(800, 600));
-	wxListBox* tagStats = new wxListBox(panel, wxID_ANY, wxPoint(200, 50), wxSize(400, 225));
-	wxListBox* authorStats = new wxListBox(panel, wxID_ANY, wxPoint(200, 325), wxSize(400, 225));
-	wxButton* buttonBack = new wxButton(panel, wxID_ANY, "OK", wxPoint(350, 555), wxSize(100, 35));
+	wxStaticText* tagsLabel = new wxStaticText(panel, wxID_ANY, "Tags Statistics:", wxPoint(200, 50), wxSize(-1, 25));
+	wxListBox* tagStats = new wxListBox(panel, wxID_ANY, wxPoint(200, 75), wxSize(400, 200));
+	wxStaticText* authorsLabel = new wxStaticText(panel, wxID_ANY, "Authors Statistics:", wxPoint(200, 300), wxSize(-1, 25));
+	wxListBox* authorStats = new wxListBox(panel, wxID_ANY, wxPoint(200, 325), wxSize(400, 200));
+	wxButton* buttonBack = new wxButton(panel, wxID_ANY, "OK", wxPoint(350, 550), wxSize(100, 35));
 
 	std::vector<Tag> tags = repository->findAllTags();
 
@@ -30,5 +32,5 @@ DashboardFrame::DashboardFrame(App* app, Repository* repository): wxFrame(nullpt
 
 void DashboardFrame::OnBack(wxCommandEvent& evt)
 {
-	app->switchToFrame(new MainFrame(app, "Main Frame", {}, repository));
+	app->switchToFrame(new MainFrame(app, {}, repository));
 }

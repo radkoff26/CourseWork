@@ -10,12 +10,7 @@
 #include "FilterFrame.h"
 #include "DashboardFrame.h"
 
-MainFrame::MainFrame(
-	App* app, 
-	const wxString& title, 
-	std::vector<std::function<bool(Note)>> filters,
-	Repository* repository
-): wxFrame(nullptr, wxID_ANY, title)
+MainFrame::MainFrame(App* app, std::vector<std::function<bool(Note)>> filters,Repository* repository): wxFrame(nullptr, wxID_ANY, "Home")
 {
 	this->app = app;
 
@@ -62,17 +57,17 @@ MainFrame::MainFrame(
 
 void MainFrame::OnAddNote(wxCommandEvent& evt)
 {
-	app->switchToFrame(new AddNoteFrame(app, nullptr, "Add Note", this->repository));
+	app->switchToFrame(new AddNoteFrame(app, this->repository));
 }
 
 void MainFrame::OnAddTag(wxCommandEvent& evt)
 {
-	app->switchToFrame(new AddTagFrame(app, nullptr, "Add Tag", this->repository));
+	app->switchToFrame(new AddTagFrame(app, this->repository));
 }
 
 void MainFrame::OnAdjustFilters(wxCommandEvent& evt)
 {
-	app->switchToFrame(new FilterFrame(app, nullptr, this->repository));
+	app->switchToFrame(new FilterFrame(app, this->repository));
 }
 
 void MainFrame::OnOpenDashboard(wxCommandEvent& evt)

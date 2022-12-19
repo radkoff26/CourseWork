@@ -3,11 +3,7 @@
 
 const int THREE_DAYS = 60 * 60 * 24 * 3;
 
-FilterFrame::FilterFrame(
-	App* app,
-	wxWindow* parent,
-	Repository* repository
-) : wxFrame(parent, wxID_ANY, "Filter Frame")
+FilterFrame::FilterFrame(App* app, Repository* repository): wxFrame(nullptr, wxID_ANY, "Filter")
 {
 	this->app = app;
 
@@ -17,8 +13,10 @@ FilterFrame::FilterFrame(
 
 	this->panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(800, 600));
 
-	this->authorInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(100, 50), wxSize(200, 20));
-	this->tagsList = new wxListBox(panel, wxID_ANY, wxPoint(100, 75), wxSize(-1, 300), {}, wxLB_MULTIPLE);
+	wxStaticText* authorLabel = new wxStaticText(panel, wxID_ANY, "Author:", wxPoint(100, 50), wxSize(50, 20));
+	this->authorInput = new wxTextCtrl(panel, wxID_ANY, "", wxPoint(150, 50), wxSize(150, 20));
+	wxStaticText* tagsLabel = new wxStaticText(panel, wxID_ANY, "Tags:", wxPoint(100, 75), wxSize(50, 50));
+	this->tagsList = new wxListBox(panel, wxID_ANY, wxPoint(150, 75), wxSize(-1, 300), {}, wxLB_MULTIPLE);
 	this->lastThreeDaysCreationCheckbox = new wxCheckBox(panel, wxID_ANY, "Created within last three days?", wxPoint(100, 400), wxSize(-1, 25));
 	this->lastThreeDaysModificationCheckbox = new wxCheckBox(panel, wxID_ANY, "Modified within last three days?", wxPoint(100, 450), wxSize(-1, 25));
 	this->applyFiltersButton = new wxButton(panel, wxID_ANY, "Apply", wxPoint(100, 500), wxSize(-1, 50));
@@ -79,5 +77,5 @@ void FilterFrame::OnApply(wxCommandEvent& evt)
 			return time(NULL) - THREE_DAYS < note.getModificationTime();
 			});
 	}
-	app->switchToFrame(new MainFrame(app, "Main Frame", filters, repository));
+	app->switchToFrame(new MainFrame(app, filters, repository));
 }
