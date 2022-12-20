@@ -49,7 +49,7 @@ std::vector<Note> Repository::findAllNotes(std::vector<std::function<bool(Note)>
 
 	std::vector<Note> notes;
 
-	NotesMapper mapper(con);
+	NoteMapper mapper(con);
 
 	while (rs->next()) {
 		notes.push_back(mapper.map(rs));
